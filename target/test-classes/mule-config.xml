@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" 
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:nutils="http://www.mulesoft.org/schema/mule/nebulent-utils"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/nebulent-utils http://www.mulesoft.org/schema/mule/nebulent-utils/1.0-SNAPSHOT/mule-nebulent-utils.xsd">
+
+	<nutils:config period="1000" requestsLimit="4" />
+
+	<flow name="testFlow">
+		<nutils:throttle />
+		
+		<logger message="#[payload]" level="INFO"/>
+
+	</flow>
+
+</mule>

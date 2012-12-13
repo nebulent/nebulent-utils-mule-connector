@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" prefix="nebulent-utils" url="http://www.mulesoft.org/schema/mule/nebulent-utils">
+  <global-cloud-connector extends="http://www.mulesoft.org/schema/mule/nebulent-utils/abstractNebulent-utilsConnectorGeneric" image="icons/large/nebulent-utils-connector-48x32.png" localId="config" icon="icons/small/nebulent-utils-connector-24x16.png" description="Global Nebulent Utils configuration information." caption="Nebulent Utils">
+    <attribute-category description="Nebulent-utils configuration properties." caption="General">
+      <group caption="Generic" id="nebulent-utilsGenericProperties">
+        <name required="true" description="Give a name to this configuration so it can be later referenced by config-ref." caption="Name" name="name"></name>
+      </group>
+      <group caption="Connection" id="connection"></group>
+      <group caption="General" id="general">
+        <integer step="1" min="0" javaType="long" required="true" description="Configurable." caption="Period" name="period"></integer>
+        <integer step="1" min="0" javaType="long" required="true" description="Configurable." caption="Requests Limit" name="requestsLimit"></integer>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector extends="http://www.mulesoft.org/schema/mule/nebulent-utils/abstractNebulent-utilsConnectorGeneric" image="icons/large/nebulent-utils-connector-48x32.png" localId="nebulent-utils-connector" icon="icons/small/nebulent-utils-connector-24x16.png" description="Cloud Connector." caption="Nebulent Utils" aliasId="org.mule.tooling.ui.modules.core.pattern.nebulent-utils">
+    <attribute-category description="General." caption="General">
+      <group caption="Generic" id="nebulent-utilsConnectorGeneric">
+        <modeSwitch description="Operation." caption="Operation" name="Nebulent-utils operations to execute">
+          <mode modeLabel="Throttle" modeId="http://www.mulesoft.org/schema/mule/nebulent-utils/throttle"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector abstract="true" image="icons/large/nebulent-utils-connector-48x32.png" localId="abstractNebulent-utilsConnectorGeneric" icon="icons/small/nebulent-utils-connector-24x16.png" description="Interact with Nebulent-utils." caption="Abstractnebulent-utilsconnectorgeneric">
+    <attribute-category description="General." caption="General">
+      <group caption="Generic" id="abstractNebulent-utilsConnectorGeneric">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/nebulent-utils/config" required="true" description="Specify which configuration to use for this invocation." caption="Config Reference" name="config-ref"></globalRef>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" extends="http://www.mulesoft.org/schema/mule/nebulent-utils/abstractNebulent-utilsConnectorGeneric" abstract="true" image="icons/large/nebulent-utils-connector-48x32.png" localId="throttle" icon="icons/small/nebulent-utils-connector-24x16.png" caption="Throttle">
+    <attribute-category description="General." caption="General"></attribute-category>
+    <attribute-category description="Connection." caption="Connection">
+      <group caption="Connection" id="connection">
+        <label caption="Use these fields to override the credentials defined in the Nebulent Utils connector."></label>
+        <label caption=""></label>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+</namespace>

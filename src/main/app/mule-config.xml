@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:nutils="http://www.mulesoft.org/schema/mule/nebulent-utils"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.0/mule-stdio.xsd
+        http://www.mulesoft.org/schema/mule/nebulent-utils http://www.mulesoft.org/schema/mule/nebulent-utils/1.0-SNAPSHOT/mule-nebulent-utils.xsd">
+
+	<http:connector name="HTTPDefaultConnector"
+		clientSoTimeout="30000" serverSoTimeout="30000">
+		<reconnect frequency="30000" count="3" />
+	</http:connector>
+
+	<stdio:connector name="stdioConnector"
+		messageDelayTime="0" outputMessage="abc" promptMessage="bcd"
+		promptMessageCode="456" resourceBundle="dummy-messages" />
+
+	<nutils:config period="1000" requestsLimit="4" />
+
+	<flow name="testFlow">
+		<inbound-endpoint address="localhost:8080/testFlow"
+			connector-ref="HTTPDefaultConnector" />
+		<nutils:throttle />
+
+		<stdio:outbound-endpoint name="out" system="OUT"
+			connector-ref="stdioConnector" />
+
+	</flow>
+
+</mule>
